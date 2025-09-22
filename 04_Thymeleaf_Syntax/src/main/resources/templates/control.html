@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <!--/* if */-->
+  
+  <!-- 1) 실제 태그에 적용하기 (태그가 화면에 그대로 적용) -->
+  <div th:if="${#lists.isEmpty(boardList)}">
+    <strong>비어 있는 리스트입니다.</strong>
+  </div>
+  <div th:if="${not #lists.isEmpty(boardList)}">
+    <strong>내용이 있는 리스트입니다.</strong>
+  </div>
+  
+  <!-- 2) 타임리프가 제공하는 블록 태그에 적용하기 (화면에 렌더링할 때 사라짐) -->
+  <th:block th:if="${#lists.isEmpty(boardList)}">
+    <strong>비어 있는 리스트입니다.</strong>
+  </th:block>
+  <th:block th:if="${not #lists.isEmpty(boardList)}">
+    <strong>내용이 있는 리스트입니다.</strong>
+  </th:block>
+
+  <hr>
+
+  <!--/* unless */-->
+  <div th:if="${#lists.isEmpty(boardList)}">
+    <strong>비어 있는 리스트입니다.</strong>
+  </div>
+  <div th:unless="${#lists.isEmpty(boardList)}">
+    <strong>내용이 있는 리스트입니다.</strong>
+  </div>
+  
+  <hr>
+
+  <!--/* 삼항 연산 처리 */-->
+  <style>
+    .red { color: red; }
+    .green { color: green; }
+  </style>
+  <div th:class="${#lists.isEmpty(boardList)} ? 'red' : 'green'">
+    빨간색은 비어 있고, 녹색은 내용이 있습니다.
+  </div>
+
+  <hr>
+  
+  <!--/* each */-->
+  
+  <!-- 1) 배열 순회 -->
+  <th:block th:each="n:${#numbers.sequence(1,5)}">
+    <span th:text="|${n}번째 루프 |"></span>
+  </th:block>
+
+  <hr>
+
+  <!-- 2) 인덱스 활용 -->
+  <th:block th:each="n,rowState:${#numbers.sequence(1,5)}">
+    <span th:text="|인덱스: ${rowState.index}, 요소: ${n} |"></span>
+  </th:block>
+
+  <hr>
+  
+  <!-- 3) 리스트 순회 -->
+  <th:block th:if="${#lists.isEmpty(boardList)}">
+    <div>등록된 게시글이 없습니다.</div>
+  </th:block>
+  <th:block th:unless="${#lists.isEmpty(boardList)}">
+    <div class="board" th:each="board,state:${boardList}">
+      <p th:text="${state.index}"></p>
+      <p th:text="${board.bid}"></p>
+      <p th:text="${board.title}"></p>
+      <pre th:text="${board.content}"></pre>
+      <p th:text="${#temporals.format(board.createdAt, 'yyyy. MM. dd')}"></p>
+    </div>
+  </th:block>
+
+</body>
+</html>

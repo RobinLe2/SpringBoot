@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.shark.boot03.board.mapper.BoardMapper">
+  
+  <select id="selectBoardList" resultType="BoardDTO">
+    SELECT bid, title, content, created_at
+      FROM tbl_board
+     ORDER BY bid DESC
+  </select>
+  
+  <select id="selectBoardById" resultType="BoardDTO">
+    SELECT bid, title, content, created_at
+      FROM tbl_board
+     WHERE bid = #{bid}
+  </select>
+  
+  <insert id="insertBoard" useGeneratedKeys="true" keyProperty="bid">
+    INSERT INTO tbl_board (
+        title
+      , content
+      , created_at
+    ) VALUES (
+        #{title}
+      , #{content}
+      , NOW()
+    )
+  </insert>
+  
+  <update id="updateBoard">
+    UPDATE tbl_board
+       SET title = #{title}
+         , content = #{content}
+     WHERE bid = #{bid}
+  </update>
+  
+  <delete id="deleteBoard">
+    DELETE
+      FROM tbl_board
+     WHERE bid = #{bid}
+  </delete>
+  
+</mapper>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+
+  <!--/* String Utility : #strings */-->
+
+  <!--/* model.addAttribute("title", "Spring Boot"); */-->
+  <div th:text="${#strings.length(title)}"></div>
+  <div th:text="${#strings.abbreviate(title, 10)}"></div>
+  
+  <!--/* model.addAttribute("content", ""); */-->
+  <div th:text="${#strings.isEmpty(content)}"></div>
+  <div th:text="${not #strings.isEmpty(content)}"></div>
+  <div th:text="${#strings.defaultString(content, 'Base Content')}"></div>
+  
+  
+  
+  <!--/* Number Utility : #numbers */-->
+  
+  <!--/* model.addAttribute("hit", 1234); */-->
+  <div th:text="${#numbers.formatInteger(hit, 5, 'COMMA')}"></div>
+  <div th:text="${#numbers.formatInteger(hit, 4, 'COMMA')}"></div>
+  <div th:text="${#numbers.formatDecimal(hit, 4, 2)}"></div>
+  <div th:text="${#numbers.formatDecimal(hit, 4, 'COMMA', 2, 'POINT')}"></div>
+  <div th:text="${#numbers.sequence(1230, hit)}"></div>
+  <div th:text="${#arrays.length(#numbers.sequence(1230, hit))}"></div>
+  
+  
+  
+  <!--/* List Utility : #lists */-->
+  
+  <!--/* model.addAttribute("authors", Arrays.asList("김철수", "이영희")); */-->
+  <div th:text="${#lists.size(authors)}"></div>
+  <div th:text="${#lists.isEmpty(authors)}"></div>
+  
+  
+  
+  <!--/* Temporal Utility : #temporals */-->
+  
+  <!--/* model.addAttribute("pubdate", LocalDateTime.now()); */-->
+  <div th:text="${#temporals.format(pubdate, 'yyyy-MM-dd E EEEE')}"></div>
+  <div th:text="${#temporals.format(pubdate, 'a hh:mm:ss.SSS')}"></div>
+  <div th:text="${#temporals.format(pubdate, 'HH:mm:ss.SSS')}"></div>
+  <div th:text="${#temporals.year(pubdate)}"></div>
+  <div th:text="${#temporals.month(pubdate)}"></div>
+  <div th:text="${#temporals.day(pubdate)}"></div>
+  <div th:text="${#temporals.hour(pubdate)}"></div>
+  <div th:text="${#temporals.minute(pubdate)}"></div>
+  <div th:text="${#temporals.second(pubdate)}"></div>
+
+</body>
+</html>

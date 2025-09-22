@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/* <head> 태그를 headfrag 조각으로 대체하기 */-->
+<head th:replace="~{home::headfrag('게시글목록')}"></head>
+
+<body>
+
+  <h1>목록 보기</h1>
+  
+  <a th:href="@{/board/write}">게시글 작성</a>
+  
+  <hr>
+  
+  <div th:text="|전체 게시글 개수 : ${pageDTO.totalItem}개|"></div>
+  <div>
+    <a th:href="@{/board/list(sort=DESC)}">최신순</a> | 
+    <a th:href="@{/board/list(sort=ASC)}">과거순</a>
+  </div>
+  <div>
+    <a th:href="@{/board/list(size=20)}">20개</a> | 
+    <a th:href="@{/board/list(size=40)}">40개</a>
+  </div>
+  
+  <th:block th:if="${#lists.isEmpty(boardList)}">
+    <div>작성된 게시글이 없습니다.</div>
+  </th:block>
+  <th:block th:unless="${#lists.isEmpty(boardList)}">
+    <div class="board" th:each="board,state:${boardList}">
+      <span th:text="${pageDTO.offset + state.count}"></span>
+      <a th:href="@{/board/detail(bid=${board.bid})}" th:text="${board.title}"></a>
+      <span th:text="${#temporals.format(board.createdAt, 'yyyy-MM-dd')}"></span>
+    </div>
+  </th:block>
+  
+  <div class="pagination">
+  
+    <th:block th:if="${pageDTO.beginPage == 1}">
+      <button type="button" class="disabled-btn">&lt;</button>
+    </th:block>
+    <th:block th:unless="${pageDTO.beginPage == 1}">
+      <button type="button" th:onclick="|location.href='/board/list?page=${pageDTO.beginPage-1}'|">&lt;</button>
+    </th:block>
+    
+    <div th:each="p:${#numbers.sequence(pageDTO.beginPage,pageDTO.endPage)}">
+      <th:block th:if="${p == pageDTO.page}">
+        <button type="button" class="focus-page" th:text="${p}"></button>
+      </th:block>
+      <th:block th:unless="${p == pageDTO.page}">
+        <button type="button" th:onclick="|location.href='/board/list?page=${p}'|" th:text="${p}"></button>
+      </th:block>
+    </div>
+  
+    <th:block th:if="${pageDTO.endPage == pageDTO.totalPage}">
+      <button type="button" class="disabled-btn">&gt;</button>
+    </th:block>
+    <th:block th:unless="${pageDTO.endPage == pageDTO.totalPage}">
+      <button type="button" th:onclick="|location.href='/board/list?page=${pageDTO.endPage+1}'|">&gt;</button>
+    </th:block>
+  
+  </div>
+
+</body>
+</html>

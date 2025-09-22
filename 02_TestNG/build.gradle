@@ -1,0 +1,53 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.5'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'org.shark'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.5'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.5'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+  // For TestNG
+  // 1. starter-test (exclude group 생략 가능 : 최적화 작업을 위해 추가)
+	testImplementation ('org.springframework.boot:spring-boot-starter-test') {
+	  exclude group: 'org.junit.jupiter'  // JUnit 5 제외
+    exclude group: 'org.junit.vintage'  // JUnit 4 제외
+  }
+	// 2. https://mvnrepository.com/artifact/org.testng/testng
+  testImplementation("org.testng:testng:7.10.2")
+  // 3. https://mvnrepository.com/artifact/org.springframework/spring-test (생략 가능, starter-test에 포함)
+  testImplementation("org.springframework:spring-test")
+}
+
+tasks.named('test') {
+	// useJUnitPlatform()
+	useTestNG()  // TestNG 사용 설정
+}

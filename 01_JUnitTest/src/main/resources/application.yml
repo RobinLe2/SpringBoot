@@ -1,0 +1,13 @@
+# YAML
+# key-value 형식으로 각종 설정을 저장하는 텍스트 파일
+# 계층 구조를 들여쓰기 형식으로 표현하는 파일
+# placeholder : ${}를 이용해서 환경 변수를 읽을 수 있음
+
+spring:
+  application:
+    name: 01_JUnitTest
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_boot01
+    username: goodee
+    password: goodee

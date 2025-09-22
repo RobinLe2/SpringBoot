@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/* <head> 태그 조각 만들기 */-->
+<head th:fragment="headfrag(title)">
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/styles/common.css}">
+<script type="text/javascript" th:src="@{/scripts/common.js}"></script>
+<title th:text="${#strings.defaultString(title, 'Home')}"></title>
+<script th:inline="javascript">
+  const msg = /*[[${msg}]]*/ null;
+  if (msg !== null)
+    alert(msg);
+</script>
+</head>
+
+<body>
+
+  <a th:href="@{/board/list}">게시판</a>
+
+</body>
+</html>

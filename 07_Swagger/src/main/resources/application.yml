@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: 07_Swagger
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/db_boot07
+    username: goodee
+    password: goodee
+
+mybatis:
+  configuration.map-underscore-to-camel-case: true
+  mapper-locations: classpath:mappers/**/*.xml
+  type-aliases-package: org.shark.boot07.user.dto

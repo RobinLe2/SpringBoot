@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <!--/* Fragement Expression : ~{} */-->
+
+  <!--/* 조각 만들기 */-->
+  <div th:fragment="hello">
+    <h1>Hello World</h1>
+    <h3>Nice to meet you</h3>
+  </div>
+
+  <hr>
+  
+  <!--/* 조각 삽입하기 (frag.html 파일의 hello 조각 삽입하기) */-->
+  <div class="box" th:insert="~{frag::hello}"></div>
+
+  <hr>
+  
+  <!--/* 조각으로 대체하기 (frag.html 파일의 hello 조각으로 대체하기) */-->
+  <div class="box" th:replace="~{frag::hello}"></div>
+
+</body>
+</html>

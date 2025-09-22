@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <!--/* Value Expression : ${} */-->
+
+  <!--/* model.addAttribute("name", "jackson") */-->
+  <div th:text="${name}"></div>
+  <div th:text="'이름 : ' + ${name}"></div>
+  <div th:text="|이름은 ${name}입니다.|"></div>
+  
+  <!--/* model.addAttribute("nickname", "<h3>Hulk</h3>") */-->
+  <div th:utext="${nickname}"></div>
+  
+  <!--/* model.addAttribute("board", new BoardDTO(1L, "제목", "내용", LocalDateTime.now())); */-->
+  <div th:text="${board.bid}"></div>
+  <div th:text="${board.title}"></div>
+  <div th:text="${board.content}"></div>
+  <div th:text="${board.createdAt}"></div>
+  
+  <!--/* model.addAttribute("board", new BoardDTO(1L, "제목", "내용", LocalDateTime.now())); */-->
+  <div th:object="${board}">
+    <div th:text="*{bid}"></div>
+    <div th:text="*{title}"></div>
+    <div th:text="*{content}"></div>
+    <div th:text="*{createdAt}"></div>
+  </div>
+  
+  <!--/* model.addAttribute("board", new BoardDTO(1L, "제목", "내용", LocalDateTime.now())); */-->
+  <form>
+    <input type="text" th:value="${board.bid}"><br>
+    <input type="text" th:value="${board.title}"><br>
+    <textarea rows="5" cols="30" th:text="${board.content}"></textarea><br>
+    <input type="text" th:value="${board.createdAt}">
+  </form>
+  
+  <!--/* model.addAttribute("board", new BoardDTO(1L, "제목", "내용", LocalDateTime.now())); */-->
+  <form th:object="${board}">
+    <input type="text" th:field="*{bid}"><br>
+    <input type="text" th:field="*{title}"><br>
+    <textarea rows="5" cols="30" th:text="${board.content}"></textarea><br>
+    <input type="text" th:field="*{createdAt}"><br>    
+  </form>
+  
+  <!--/* session.setAttribute("forecast", Map.of("weather", "rainy", "temperature", 27)); */-->
+  <div th:text="${session.forecast.weather}"></div>
+  <div th:text="${session.forecast.temperature}"></div>
+  
+  <!--/* session.setAttribute("forecast", Map.of("weather", "rainy", "temperature", 27)); */-->
+  <div th:object="${session.forecast}">
+    <div th:text="*{weather}"></div>
+    <div th:text="*{temperature}"></div>
+  </div>
+
+</body>
+</html>

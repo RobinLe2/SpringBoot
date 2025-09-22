@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/* <head> 태그를 headfrag 조각으로 대체하기 */-->
+<head th:replace="~{home::headfrag('게시글수정')}"></head>
+
+<body>
+
+  <h1>게시글 수정</h1>
+
+  <form th:action="@{/board/update}" method="post" th:object="${board}">
+    <input type="hidden" name="bid" th:field="*{bid}">
+    <label for="title">제목</label>
+    <input type="text" name="title" id="title" th:field="*{title}">
+    <th:block th:if="${titleError != null}">
+      <span style="font-size: 0.9em; color: red;" th:text="${titleError}"></span>
+    </th:block>
+    <br>
+    <label for="content">내용</label>
+    <br>
+    <textarea rows="5" cols="30" name="content" id="content" th:text="*{content}"></textarea>
+    <br>
+    <th:block th:if="${contentError != null}">
+      <span style="font-size: 0.9em; color: red;" th:text="${contentError}"></span>
+    </th:block>
+    <br>
+    <button type="submit">수정</button>
+  </form>
+  
+  <form th:action="@{/board/delete}" method="post" onsubmit="onDelete()">
+    <input type="hidden" name="bid" th:value="${board.bid}">
+    <button type="submit">삭제</button>
+  </form>
+  <script type="text/javascript">
+    function onDelete() {
+      if (!confirm("게시글을 삭제할까요?")) {
+        window.event.preventDefault();
+      }
+    }
+  </script>
+  
+  <th:block th:if="${updateError != null}">
+    <div style="font-size: 0.9em; color: red;" th:text="${updateError}"></div>
+  </th:block>
+  <th:block th:if="${deleteError != null}">
+    <div style="font-size: 0.9em; color: red;" th:text="${deleteError}"></div>
+  </th:block>
+  
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+  <!--/* 자바스크립트에서 자바 변수(서버 데이터) 처리를 위한 텍스트 렌더링 표현식(JavaScript Inline Expression) : [[${}]] */-->
+  <!--/* th:inline="javascript" : javascript inline expression 문법의 완전한 사용(예: 문자열 자동 처리)을 위해서 추가 */-->
+  <script th:inline="javascript">
+    const msg = [[${msg}]];
+    if (msg !== '')
+      alert(msg);
+  </script>
+  
+  <!--/* Natural Template : 서버 개입 없어도 HTML 파일이 정상적으로 열릴 수 있도록 해 주는 문법입니다. */-->
+  <script th:inline="javascript">
+    const result = /*[[${result}]]*/ null;
+    if (result === null)
+      alert("디폴트 값");
+    else
+      alert(result);
+  </script>
+  
+</body>
+</html>

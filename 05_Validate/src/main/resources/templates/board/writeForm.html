@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/* <head> 태그를 headfrag 조각으로 대체하기 */-->
+<head th:replace="~{home::headfrag('게시글작성')}"></head>
+
+<body>
+
+  <h1>게시글 작성</h1>
+
+  <form th:action="@{/board/create}" method="post">
+    <label for="title">제목</label>
+    <input type="text" name="title" id="title" th:value="${board.title}">
+    <th:block th:if="${not #strings.isEmpty(errors)}">
+      <th:block th:if="${errors.hasFieldErrors('title')}">      
+        <span style="font-size: 0.9em; color: red;" th:text="${errors.getFieldError('title').defaultMessage}"></span>
+      </th:block>
+    </th:block>
+    <br>
+    <label for="content">내용</label>
+    <br>
+    <textarea rows="5" cols="30" name="content" id="content" th:text="${board.content}"></textarea>
+    <br>
+    <th:block th:if="${not #strings.isEmpty(errors)}">
+      <th:block th:if="${errors.hasFieldErrors('content')}">      
+        <span style="font-size: 0.9em; color: red;" th:text="${errors.getFieldError('content').defaultMessage}"></span>
+      </th:block>
+    </th:block>
+    <br>
+    <button type="submit">등록</button>
+  </form>
+  
+  <th:block th:if="${insertError != null}">  
+    <div style="font-size: 0.9em; color: red;" th:text="${insertError}"></div>
+  </th:block>
+  
+</body>
+</html>

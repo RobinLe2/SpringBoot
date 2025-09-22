@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--/* <head> 태그를 headfrag 조각으로 대체하기 */-->
+<head th:replace="~{home::headfrag('게시글상세')}"></head>
+
+<body>
+
+  <h1 th:text="|${board.bid}번 게시글|"></h1>
+  <div th:text="|작성일자 : ${#temporals.format(board.createdAt, 'yyyy. MM. dd a hh:mm:ss')}|"></div>
+  <div th:text="|제목 : ${board.title}|"></div>
+  <pre th:text="${board.content}"></pre>
+
+  <div>
+    <button type="button" onclick="onEdit()">편집</button>
+  </div>
+  
+  <script th:inline="javascript">
+    function onEdit() {
+      const bid = /*[[${board.bid}]]*/ null;
+      if (bid === null) {
+        alert("게시글 ID 정보가 없습니다.");
+        return;
+      }
+      location.href = "/board/edit?bid=" + bid;
+    }
+  </script>
+
+</body>
+</html>

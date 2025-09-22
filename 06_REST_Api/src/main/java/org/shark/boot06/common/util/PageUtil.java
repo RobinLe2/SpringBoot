@@ -19,9 +19,9 @@ public class PageUtil {
   public void calculatePaging(PageDTO dto) {
     int page = dto.getPage();
     int size = dto.getSize();
-    int totalItem = dto.getTotalItem();
+    long totalItem = dto.getTotalItem();
     
-    int offset = (page - 1) * size;
+    long offset = (page - 1) * size;
     int totalPage = (int) Math.ceil((double) totalItem / size);
     int beginPage = ((page - 1) / PAGE_PER_BLOCK) * PAGE_PER_BLOCK + 1;
     int endPage = Math.min(beginPage + PAGE_PER_BLOCK - 1, totalPage);
