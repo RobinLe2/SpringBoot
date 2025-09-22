@@ -7,13 +7,10 @@ import org.shark.boot07.user.dto.enums.SortType;
 import org.shark.boot07.user.dto.request.UserCreateRequestDTO;
 import org.shark.boot07.user.dto.request.UserUpdateRequestDTO;
 import org.shark.boot07.user.dto.response.ApiUserResponseDTO;
-import org.shark.boot07.user.exception.ApiUserErrorResponseDTO;
-import org.shark.boot07.user.exception.UserNotFoundException;
 import org.shark.boot07.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -51,8 +48,6 @@ import lombok.RequiredArgsConstructor;
 public class UserApiController {
 
   private final UserService userService;
-  
-
   
   /*
    * Postman 요청 시 주의사항
@@ -123,7 +118,7 @@ public class UserApiController {
   
   @GetMapping("/{uid}")
   @Operation(summary = "사용자 정보 조회"
-  , description = "사용자번호가 일치하는 사용자를 조회하는 API")
+           , description = "사용자번호가 일치하는 사용자를 조회하는 API")
   @ApiResponses(value = {
       @ApiResponse(responseCode = "200"
           , description = "사용자 정보 조회 성공"
@@ -150,13 +145,15 @@ public class UserApiController {
   })
   @Parameters(value = {
       @Parameter(name = "page"
-               , required = false
+               , required = true
                , description = "조회할 페이지의 번호"
-               , in = ParameterIn.QUERY)  // 쿼리스트링으로 전달되는 파라미터
+               , in = ParameterIn.QUERY  // 쿼리스트링으로 전달되는 파라미터
+               , schema = @Schema(type = "integer", minimum = "1", example = "1"))
     , @Parameter(name = "size"
                , required = false
                , description = "한 페이지에 포함할 사용자 수"
-               , in = ParameterIn.QUERY)
+               , in = ParameterIn.QUERY
+               , schema = @Schema(type = "integer", defaultValue = "20", example = "20"))
     , @Parameter(name = "sort"
                , required = false
                , description = "사용자 정렬 방식"
@@ -164,9 +161,13 @@ public class UserApiController {
                , schema = @Schema(implementation = SortType.class))
   })
   public ResponseEntity<ApiUserResponseDTO> list(
-      PageDTO pageDTO,
-      @RequestParam(value = "sort", defaultValue = "DESC") String sort
+      @RequestParam(value = "page", required = true) int page
+    , @RequestParam(value = "size", defaultValue = "20") int size
+    , @RequestParam(value = "sort", defaultValue = "DESC") String sort
   ) {
+    PageDTO pageDTO = new PageDTO();
+    pageDTO.setPage(page);
+    pageDTO.setSize(size);
     ApiUserResponseDTO dto = ApiUserResponseDTO.builder()
                               .status(200)
                               .message("회원 목록 조회 성공")

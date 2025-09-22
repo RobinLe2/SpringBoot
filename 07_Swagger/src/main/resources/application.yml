@@ -11,3 +11,9 @@ mybatis:
   configuration.map-underscore-to-camel-case: true
   mapper-locations: classpath:mappers/**/*.xml
   type-aliases-package: org.shark.boot07.user.dto
+
+springdoc:
+  api-docs:
+    version: openapi-3-0
+  swagger-ui:
+    path: /swagger-ui.html
