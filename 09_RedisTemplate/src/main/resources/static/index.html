@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Board Redis Test</title>
+</head>
+<body>
+  <h1>Board Redis Test</h1>
+  
+  <h2>저장</h2>
+  <form id="saveForm">
+    <input type="number" id="bid" placeholder="bid"><br>
+    <input type="text" id="title" placeholder="title"><br>
+    <input type="text" id="content" placeholder="content"><br>
+    <button type="submit">저장</button>
+  </form>
+  
+  
+  <h2>조회</h2>
+  <form id="findForm">
+  <input type="number" id="findBid" placeholder="bid 입력">
+  <button type="submit">조회</button> 
+  </form>
+  <pre id="find"></pre>
+
+  
+  <h2>삭제</h2>
+  <form id="deleteForm">
+  <input type="number" id="deleteBid" placeholder="bid 입력">
+  <button onclick="deleteBoard()">삭제</button>
+  </form>
+
+  
+  <script>
+  
+  const resultElement = document.getElementById('find');
+  // 저장
+  document.getElementById("saveForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const bid = document.getElementById("bid").value;
+    const title = document.getElementById("title").value;
+    const content = document.getElementById("content").value;
+    const formData = new FormData();
+    formData.append("bid",bid);
+    formData.append("title",title);
+    formData.append("content",content);
+    fetch("/api/boards", {
+      method: "POST",
+      body: formData}) 
+    .then(res => res.text())
+    .then(msg => {
+    	 alert(msg);
+    })
+    .catch(err => {
+      alert("저장 실패!");
+      console.error(err);
+    });
+  });
+
+  // 조회
+    
+    
+    document.getElementById("findForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    
+    const bid = document.getElementById("findBid").value;
+   
+    fetch(`/api/boards/${bid}`)
+    .then(response => response.text())
+    .then(text => { 
+        const jsonData = JSON.parse(text);
+        resultElement.textContent = JSON.stringify(jsonData, null, 2);
+    });
+  });
+  
+
+  // 삭제
+  document.getElementById("deleteForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    const bid = document.getElementById("deleteBid").value;
+
+    fetch(`/api/boards/${bid}`, { method: "DELETE" })
+    .then(res => res.text())
+    .then(msg => {
+       alert(msg);
+    })
+    .catch(err => {
+      alert("삭제 실패!");
+      console.error(err);
+    });
+  });
+ 
+  </script>
+  
+  
+</body>
+</html>

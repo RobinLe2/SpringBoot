@@ -1,0 +1,22 @@
+1. Redis
+  1) Remote Dictionary Server
+  2) 인메모리(In Memory) 기반의 오픈소스 NoSQL 데이터 베이스
+  3) 데이터를 디스크가 아니라 시스템 메모리에 저장하기 때문에 읽기/쓰기가 매우 빠름
+
+2. 기본 개념
+  1) Key-Value 구조를 기반으로 한 비관계형 데이터베이스
+  2) NoSQL이므로 SQL 대신 명령어 기반 API로 데이터를 관리
+  3) 캐시, 임시 저장, 세션 저장소 등 다양한 용도로 활용
+  4) String, List, Set, Hash, Sorted Set 등의 자료 구조를 지원
+  5) Single Thread 방식으로 동작 (데이터의 일관성 및 동시 접근 제어가 용이)
+
+3. RedisRepository
+  1) Spring Data Redis가 제공하는 Repository 인터페이스 구현체입니다.
+  2) CRUD 중심의 추상화를 제공합니다.
+  3) JPA Repository와 유사한 CRUD 메소드를 제공합니다.
+  4) 간단한 CRUD 작업에 적합합니다.
+
+4. RedisTemplate
+  1) Redis의 다양한 기능을 사용할 수 있는 Repository 추상화 도구입니다.
+  2) 세밀하게 Redis 명령어를 조작해서 복잡한 기능을 구현할 수 있습니다.
+  3) Redis 전체 기능을 세밀하게 제어할 수 있으므로, 복잡한 Redis 활용 및 최적화가 필요한 경우에 적합합니다.
