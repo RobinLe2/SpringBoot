@@ -1,0 +1,48 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.5.6'
+	id 'io.spring.dependency-management' version '1.1.7'
+}
+
+group = 'org.shark'
+version = '0.0.1-SNAPSHOT'
+description = 'Demo project for Spring Boot'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+  
+  // spring-boot-start-data-jpa dependency 사용 없이 JPA 핵심 의존 설정을 직접 구성
+  
+  // JPA 기술 스택 https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+  implementation("org.hibernate:hibernate-core:6.4.4.Final")
+  
+  // JPA 기술 구현체 https://mvnrepository.com/artifact/jakarta.persistence/jakarta.persistence-api 
+  implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
+	
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'com.mysql:mysql-connector-j:8.0.33'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

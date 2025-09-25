@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+  xmlns="https://jakarta.ee/xml/ns/persistence"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd ">
+  <persistence-unit name="jpa-learning">
+    
+    <properties>
+      <!-- 데이터베이스 접속 정보 -->
+      <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+      <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/db_boot11"/>
+      <property name="jakarta.persistence.jdbc.user" value="goodee"/>
+      <property name="jakarta.persistence.jdbc.password" value="goodee"/>
+      
+      <!-- hibernate.dialect : 하이버네이트가 사용할 데이터베이스 설정 -->
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      
+      <!-- hibernate.show_sql : 실행하는 쿼리를 콘솔에 출력 -->
+      <property name="hibernate.show_sql" value="true"/>
+      
+      <!-- hibernate.format_sql : 출력하는 쿼리를 보기 좋게 구성  -->
+      <property name="hibernate.format_sql" value="true"/>
+      
+      <!-- hibernate.hbm2ddl.auto : 스키마 자동 생성 및 수정 전략  -->
+      <!--  - none        : 아무 일도 일어나지 않음 (서비스 운영 환경에서 사용 권장) -->
+      <!--  - update      : 엔티티 변경사항을 기존 테이블에 반영 (칼럼 변경) -->
+      <!--  - create      : 애플리케이션 시작 시 테이블 생성 (기존 테이블은 삭제 후 재생성) -->
+      <!--  - create-drop : 애플리케이션 종료 시 테이블 삭제가 추가된 create 모드 -->
+      <!--  - validate    : 엔티티와 테이블 스키마의 일치 여부만 검증 -->
+      <property name="hibernate.hbm2ddl.auto" value="update"/>
+      
+      
+    </properties>
+  </persistence-unit>
+</persistence>
