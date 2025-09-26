@@ -16,11 +16,12 @@ public class JpaUtil {
   }
   
   public void closeFactory() {
-    if (factory != null) 
-    factory.close();
+    if (factory != null)
+      factory.close();
   }
   
   public EntityManager getEntityManager() {
     return factory.createEntityManager();
   }
+  
 }
